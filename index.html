@@ -31,9 +31,7 @@
 
     <section id="exchangeArea" class="exchange-area">
       <div class="exchange-title">交換するところ</div>
-      <div id="exchangeZone" class="exchange-zone">
-        <span id="exchangeHint">ここに カードを おこう</span>
-      </div>
+      <div id="exchangeZone" class="exchange-zone"><span>ここに カードを おこう</span></div>
       <button id="giveBtn" class="give" disabled>相手に わたす</button>
     </section>
   </main>
@@ -71,43 +69,93 @@
 </div>
 
 <div id="teacherModal" class="modal hidden">
-  <div class="panel">
+  <div class="panel teacher-panel">
     <h2>先生用設定</h2>
 
-    <label>学習段階
-      <select id="phaseSelect">
-        <option value="1">Phase 1：1枚を交換する</option>
-        <option value="2">Phase 2：自分から相手へ届ける</option>
-        <option value="3">Phase 3：複数から選んで交換する</option>
-        <option value="4">Phase 4：Sentence Stripで文を作る</option>
-      </select>
-    </label>
+    <section class="setting-section">
+      <h3>学習設定</h3>
+      <label>学習段階
+        <select id="phaseSelect">
+          <option value="1">Phase 1：1枚を交換する</option>
+          <option value="2">Phase 2：自分から相手へ届ける</option>
+          <option value="3">Phase 3：複数から選んで交換する</option>
+          <option value="4">Phase 4：Sentence Stripで文を作る</option>
+        </select>
+      </label>
+      <label>Phase 3・4 のカード枚数
+        <select id="cardCount">
+          <option value="2">2枚</option>
+          <option value="4">4枚</option>
+          <option value="6">6枚</option>
+          <option value="8">8枚</option>
+          <option value="12">12枚</option>
+        </select>
+      </label>
+      <label>Phase 1・2 で使うカード
+        <select id="singleCardSelect"></select>
+      </label>
+      <label class="check"><input id="speechToggle" type="checkbox"> 交換時に読み上げる</label>
+    </section>
 
-    <label>Phase 3・4 のカード枚数
-      <select id="cardCount">
-        <option value="2">2枚</option>
-        <option value="4">4枚</option>
-        <option value="6">6枚</option>
-        <option value="8">8枚</option>
-      </select>
-    </label>
+    <section class="setting-section">
+      <div class="section-head">
+        <h3>カード編集</h3>
+        <button id="newCardBtn" class="secondary compact">＋ 新しいカード</button>
+      </div>
+      <div id="cardEditorList" class="editor-list"></div>
+    </section>
 
-    <label>Phase 1・2 で使うカード
-      <select id="singleCardSelect"></select>
-    </label>
-
-    <label class="check"><input id="speechToggle" type="checkbox"> 交換時に読み上げる</label>
-
-    <h3>今日の記録</h3>
-    <div class="stats">
-      <div><b id="independentCount">0</b><span>自分から</span></div>
-      <div><b id="assistCount">0</b><span>手助けあり</span></div>
-      <div><b id="sentCount">0</b><span>交換成立</span></div>
-    </div>
+    <section class="setting-section">
+      <h3>今日の記録</h3>
+      <div class="stats">
+        <div><b id="independentCount">0</b><span>自分から</span></div>
+        <div><b id="assistCount">0</b><span>手助けあり</span></div>
+        <div><b id="sentCount">0</b><span>交換成立</span></div>
+      </div>
+      <button id="resetStatsBtn" class="secondary">記録をリセット</button>
+    </section>
 
     <div class="actions">
-      <button id="resetStatsBtn" class="secondary">記録をリセット</button>
       <button id="closeTeacherBtn" class="give">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<div id="cardEditorModal" class="modal hidden">
+  <div class="panel card-editor-panel">
+    <h2 id="cardEditorTitle">カードを編集</h2>
+    <input id="editingCardId" type="hidden">
+
+    <div class="image-editor">
+      <div id="imagePreview" class="image-preview">画像なし</div>
+      <div class="image-actions">
+        <label class="file-button">写真・イラストを選ぶ
+          <input id="imageInput" type="file" accept="image/*" hidden>
+        </label>
+        <button id="removeImageBtn" class="secondary compact">画像を外す</button>
+      </div>
+      <div class="help-text">写真はこの端末内に保存しやすい大きさへ自動調整します。</div>
+    </div>
+
+    <label>カードに表示する文字
+      <input id="cardLabelInput" type="text" maxlength="40" placeholder="例：りんごジュース">
+    </label>
+    <label>読み上げる言葉
+      <input id="cardSpeechInput" type="text" maxlength="100" placeholder="例：りんごジュース">
+    </label>
+    <label>画像がない時のマーク
+      <input id="cardEmojiInput" type="text" maxlength="4" placeholder="例：🥤">
+    </label>
+    <label>カテゴリ
+      <input id="cardCategoryInput" type="text" maxlength="30" list="categorySuggestions" placeholder="例：のみもの">
+      <datalist id="categorySuggestions"></datalist>
+    </label>
+
+    <div class="editor-actions">
+      <button id="deleteCardBtn" class="danger">このカードを削除</button>
+      <span class="spacer"></span>
+      <button id="cancelCardEditBtn" class="secondary">キャンセル</button>
+      <button id="saveCardBtn" class="give">保存</button>
     </div>
   </div>
 </div>
